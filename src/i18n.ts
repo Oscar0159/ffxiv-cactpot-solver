@@ -8,6 +8,8 @@ import Backend from 'i18next-http-backend';
 // have a look at the Quick start guide
 // for passing in lng and translations on init
 
+const BASE = import.meta.env.BASE_URL;
+
 i18n
   // load translation using http -> see /public/locales (i.e. https://github.com/i18next/react-i18next/tree/master/example/react/public/locales)
   // learn more: https://github.com/i18next/i18next-http-backend
@@ -26,6 +28,10 @@ i18n
 
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
+    },
+
+    backend: {
+      loadPath: `${BASE}locales/{{lng}}/{{ns}}.json`,
     },
   });
 
