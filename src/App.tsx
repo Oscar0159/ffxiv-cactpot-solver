@@ -6,7 +6,9 @@ import { Redo, RotateCw, Undo } from 'lucide-react';
 import { Button } from '@/components/motion-ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 
+import Github from './assets/github.svg?react';
 import Cactpot from './components/Cactpot';
+import CactuarCanvas from './components/CactuarCanvas';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import ThemeToggle from './components/ThemeToggle';
 import { ThemeProvider } from './theme/ThemeProvider';
@@ -49,8 +51,28 @@ function App() {
               {t('common.reset')}
             </Button>
           </ButtonGroup>
-          <Cactpot cactpotBoard={gridValue} onChange={setGridValue} />
+          <div className="flex w-full">
+            <CactuarCanvas />
+            <Cactpot
+              cactpotBoard={gridValue}
+              onChange={setGridValue}
+              className="shrink-0"
+            />
+            <CactuarCanvas />
+          </div>
         </main>
+        <footer className="bg-background/80 flex h-12 items-center justify-center px-6">
+          <p className="text-muted-foreground text-sm">
+            © 2025 Archer Wn. {t('common.rightsReserved')}
+          </p>
+          <a
+            href="https://github.com/Oscar0159/ffxiv-cactpot-solver"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Github className="fill-muted-foreground ml-4 h-5 w-5 hover:opacity-70" />
+          </a>
+        </footer>
       </div>
     </ThemeProvider>
   );
