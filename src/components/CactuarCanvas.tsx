@@ -13,13 +13,16 @@ import { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 
 import { useTheme } from '@/theme/ThemeContext';
 
+
+const MODEL_PATH = `${import.meta.env.BASE_URL}models/cactuar_final_fantasy.glb`;
+
 interface CactuarModelProps {
   onPointerOver?: (event: ThreeEvent<PointerEvent>) => void;
   onPointerOut?: (event: ThreeEvent<PointerEvent>) => void;
 }
 
 function CactuarModel({ onPointerOver, onPointerOut }: CactuarModelProps) {
-  const gltf = useGLTF('/models/cactuar_final_fantasy.glb');
+  const gltf = useGLTF(MODEL_PATH);
   const cloned = useMemo(() => gltf.scene.clone(true), [gltf.scene]);
 
   return (
@@ -37,7 +40,7 @@ function CactuarModel({ onPointerOver, onPointerOut }: CactuarModelProps) {
     </mesh>
   );
 }
-useGLTF.preload('/models/cactuar_final_fantasy.glb');
+useGLTF.preload(MODEL_PATH);
 
 type CactuarCanvasProps = CanvasProps;
 
