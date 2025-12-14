@@ -1,73 +1,69 @@
-# React + TypeScript + Vite
+# FFXIV Cactpot Solver (React + TypeScript + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+一個使用 React + TypeScript + Vite 建置的 FFXIV 仙人微彩（Mini Cactpot）輔助與解題工具。
 
-Currently, two official plugins are available:
+## 技術
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Vite + React + TypeScript（見 [vite.config.ts](vite.config.ts), [tsconfig.json](tsconfig.json), [tsconfig.app.json](tsconfig.app.json)）
+- ESLint（見 [eslint.config.js](eslint.config.js)）
+- i18n（見 [src/i18n.ts](src/i18n.ts), [public/locales](public/locales/)）
+- GitHub Actions 部署（見 [.github/workflows/deploy.yml](.github/workflows/deploy.yml)）
 
-## React Compiler
+## 安裝與啟動
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+1. 安裝依賴（使用 pnpm）：
+   ```sh
+   pnpm i
+   ```
+2. 開發模式啟動（含 HMR）：
+   ```sh
+   pnpm dev
+   ```
+3. 建置：
+   ```sh
+   pnpm build
+   ```
+4. 本地預覽產出：
+   ```sh
+   pnpm preview
+   ```
 
-## Expanding the ESLint configuration
+可用腳本請參考 [package.json](package.json)。
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 主要程式入口
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- 應用入口：[`src/main.tsx`](src/main.tsx)
+- App 組件：[`src/App.tsx`](src/App.tsx)
+- 全域樣式：[`src/index.css`](src/index.css)
+- 靜態頁面模板：[`index.html`](index.html)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 元件一覽
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Cactpot 求解/互動：
+  - [`src/components/Cactpot.tsx`](src/components/Cactpot.tsx)
+  - [`src/components/CactuarCanvas.tsx`](src/components/CactuarCanvas.tsx)
+  - [`src/components/NumberPad.tsx`](src/components/NumberPad.tsx)
+- 介面控制：
+  - [`src/components/LanguageSwitcher.tsx`](src/components/LanguageSwitcher.tsx)
+  - [`src/components/ThemeToggle.tsx`](src/components/ThemeToggle.tsx)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+其他資源：
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- 圖示與模型：[`public/svgs`](public/svgs/), [`public/models`](public/models/)
+- 型別與工具：[`src/types`](src/types/), [`src/lib`](src/lib/)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 國際化
+
+- 語言資源位於 [`public/locales`](public/locales/)（en 與 zh-TW）。
+- 初始化與切換邏輯見 [`src/i18n.ts`](src/i18n.ts) 與 [`src/components/LanguageSwitcher.tsx`](src/components/LanguageSwitcher.tsx)。
+
+## 主題
+
+- 主題切換元件見 [`src/components/ThemeToggle.tsx`](src/components/ThemeToggle.tsx)。
+- 可在 [`src/theme`](src/theme/) 擴充樣式與變數。
+
+## 開發建議
+
+- ESLint/Prettier 設定見：
+  - [`eslint.config.js`](eslint.config.js)
+  - [`.prettierrc`](.prettierrc)
