@@ -13,7 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { getExpectedBonus } from '@/lib/cactpot';
+import { calcExpectedBonus, calcRevealPositions } from '@/lib/cactpot';
 import { cn } from '@/lib/utils';
 import type { CactpotLineDirection } from '@/types/cactpot';
 
@@ -41,6 +41,11 @@ export default function Cactpot({
     ? cactpotBoard.flat().filter((v) => v !== undefined).length >= 4
     : false;
 
+  const revealPositions = useMemo(() => {
+    if (!cactpotBoard) return [];
+    return calcRevealPositions(cactpotBoard);
+  }, [cactpotBoard]);
+
   const cactpotLineSelectItems: Array<{
     row: number;
     col: number;
@@ -54,7 +59,7 @@ export default function Cactpot({
         col: 0,
         dir: 'DiagonalTopLeftToBottomRight',
         prefix: <MoveDownRight />,
-        expectedBonus: getExpectedBonus(
+        expectedBonus: calcExpectedBonus(
           cactpotBoard,
           'DiagonalTopLeftToBottomRight',
         ),
@@ -64,28 +69,28 @@ export default function Cactpot({
         col: 1,
         dir: 'LeftColumn',
         prefix: <MoveDown />,
-        expectedBonus: getExpectedBonus(cactpotBoard, 'LeftColumn'),
+        expectedBonus: calcExpectedBonus(cactpotBoard, 'LeftColumn'),
       },
       {
         row: 0,
         col: 2,
         dir: 'MiddleColumn',
         prefix: <MoveDown />,
-        expectedBonus: getExpectedBonus(cactpotBoard, 'MiddleColumn'),
+        expectedBonus: calcExpectedBonus(cactpotBoard, 'MiddleColumn'),
       },
       {
         row: 0,
         col: 3,
         dir: 'RightColumn',
         prefix: <MoveDown />,
-        expectedBonus: getExpectedBonus(cactpotBoard, 'RightColumn'),
+        expectedBonus: calcExpectedBonus(cactpotBoard, 'RightColumn'),
       },
       {
         row: 0,
         col: 4,
         dir: 'DiagonalTopRightToBottomLeft',
         prefix: <MoveDownLeft />,
-        expectedBonus: getExpectedBonus(
+        expectedBonus: calcExpectedBonus(
           cactpotBoard,
           'DiagonalTopRightToBottomLeft',
         ),
@@ -95,21 +100,21 @@ export default function Cactpot({
         col: 0,
         dir: 'TopRow',
         prefix: <MoveRight />,
-        expectedBonus: getExpectedBonus(cactpotBoard, 'TopRow'),
+        expectedBonus: calcExpectedBonus(cactpotBoard, 'TopRow'),
       },
       {
         row: 2,
         col: 0,
         dir: 'MiddleRow',
         prefix: <MoveRight />,
-        expectedBonus: getExpectedBonus(cactpotBoard, 'MiddleRow'),
+        expectedBonus: calcExpectedBonus(cactpotBoard, 'MiddleRow'),
       },
       {
         row: 3,
         col: 0,
         dir: 'BottomRow',
         prefix: <MoveRight />,
-        expectedBonus: getExpectedBonus(cactpotBoard, 'BottomRow'),
+        expectedBonus: calcExpectedBonus(cactpotBoard, 'BottomRow'),
       },
     ],
     [cactpotBoard],
@@ -139,6 +144,7 @@ export default function Cactpot({
         {cactpotLineSelectItems.map((item, index) => (
           <div
             key={index}
+            className=''
             style={{
               gridColumnStart: item.col + 1,
               gridRowStart: item.row + 1,
@@ -164,6 +170,12 @@ export default function Cactpot({
                 className={cn(
                   'aspect-square h-18 rounded-full border-2 text-2xl transition-all duration-150 ease-in-out',
                   isSelectFinished && 'hover:bg-muted/0',
+                  !isSelectFinished &&
+                    revealPositions.some(
+                      (pos) => pos[0] === rowIndex && pos[1] === colIndex,
+                    )
+                    ? 'border-green-500 bg-green-100/50'
+                    : '',
                 )}
                 style={{
                   gridColumnStart: colIndex + 2,

@@ -4,6 +4,8 @@ import path from 'path';
 import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
 
+const repoName = 'ffxiv-cactpot-solver';
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss(), svgr()],
@@ -12,4 +14,5 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  base: '/' + repoName + '/',
 });

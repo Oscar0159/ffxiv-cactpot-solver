@@ -53,7 +53,7 @@ const boardLineIndices: Record<
   ],
 };
 
-export function getExpectedBonus(
+export function calcExpectedBonus(
   board: (number | undefined)[][],
   lineDirection: CactpotLineDirection,
 ): number {
@@ -87,4 +87,60 @@ export function getExpectedBonus(
   }
 
   return expectedBonus;
+}
+
+export function calcRevealPositions(
+  board: (number | undefined)[][],
+): Array<[number, number]> {
+  const positions: Array<[number, number]> = [];
+
+  const emptyPositions: Array<[number, number]> = [];
+  for (let row = 0; row < 3; row++) {
+    for (let col = 0; col < 3; col++) {
+      if (board[row][col] === undefined) {
+        emptyPositions.push([row, col]);
+      }
+    }
+  }
+  if (emptyPositions.length === 0) {
+    return positions;
+  }
+
+  const availableNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9].filter((num) =>
+    !board.flat().includes(num),
+  );
+  const posAverageScores: Map<string, number> = new Map();
+  for (const pos of emptyPositions) {
+    for (const num of availableNumbers) {
+      const testBoard = JSON.parse(JSON.stringify(board)) as (
+        | number
+        | undefined
+      )[][];
+      testBoard[pos[0]][pos[1]] = num;
+      let totalExpectedBonus = 0;
+      for (const lineDirection of Object.keys(boardLineIndices) as CactpotLineDirection[]) {
+        totalExpectedBonus += calcExpectedBonus(testBoard, lineDirection);
+      }
+      const key = `${pos[0]},${pos[1]}`;
+      posAverageScores.set(
+        key,
+        (posAverageScores.get(key) || 0) + totalExpectedBonus / availableNumbers.length,
+      );
+    }
+  }
+  
+  const sortedPositions = Array.from(posAverageScores.entries()).sort(
+    (a, b) => b[1] - a[1],
+  );
+  const maxScore = sortedPositions[0][1];
+  for (const [key, score] of sortedPositions) {
+    if (score === maxScore) {
+      const [rowStr, colStr] = key.split(',');
+      positions.push([parseInt(rowStr, 10), parseInt(colStr, 10)]);
+    } else {
+      break;
+    }
+  }
+
+  return positions;
 }

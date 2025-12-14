@@ -32,9 +32,15 @@ function App() {
   return (
     <ThemeProvider>
       <div className="flex h-dvh flex-col">
-        <header className="bg-background/80 flex h-16 items-center justify-end gap-4 px-6">
-          <ThemeToggle />
-          <LanguageSwitcher />
+        <header className="bg-background/80 flex h-16 items-center px-6">
+          <div className="flex-1"></div>
+          <h4 className="flex-1 scroll-m-20 text-center text-xl font-semibold tracking-tight">
+            FFXIV Cactpot Solver
+          </h4>
+          <div className="flex flex-1 justify-end gap-4">
+            <ThemeToggle />
+            <LanguageSwitcher />
+          </div>
         </header>
         <main className="flex flex-1 flex-col items-center justify-center">
           <ButtonGroup className="mb-4">

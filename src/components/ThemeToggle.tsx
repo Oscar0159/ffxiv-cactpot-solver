@@ -7,8 +7,13 @@ import { AnimatePresence, motion } from 'motion/react';
 
 import { Button } from '@/components/motion-ui/button';
 import { useTheme } from '@/theme/ThemeContext';
+import { cn } from '@/lib/utils';
 
-export default function ThemeToggle() {
+interface ThemeToggleProps {
+  className?: string;
+}
+
+export default function ThemeToggle({ className }: ThemeToggleProps) {
   const { theme, setTheme } = useTheme();
 
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -63,7 +68,7 @@ export default function ThemeToggle() {
       variant="ghost"
       size="icon"
       onClick={handleThemeChange}
-      className="rounded-full"
+      className={cn("rounded-full", className)}
     >
       <AnimatePresence initial={false}>
         {theme === 'dark' ? (
