@@ -1,0 +1,19 @@
+{
+    "theme": {
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System"
+    },
+
+    "common": {
+        "undo": "Undo",
+        "redo": "Redo",
+        "reset": "Reset"
+    },
+
+    "cactpot": {
+        "title": "Cactpot Solver",
+        "selectNumber": "Select a Number",
+        "selectNumberDescription": "Choose a number to place in the selected cell."
+    }
+}
