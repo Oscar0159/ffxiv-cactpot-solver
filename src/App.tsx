@@ -33,11 +33,11 @@ function App() {
     <ThemeProvider>
       <div className="flex h-dvh flex-col">
         <header className="bg-background/80 flex h-16 items-center px-6">
-          <div className="flex-1"></div>
+          <div className="hidden flex-1 sm:block"></div>
           <h4 className="flex-1 scroll-m-20 text-center text-xl font-semibold tracking-tight">
             {t('common.appName')}
           </h4>
-          <div className="flex flex-1 justify-end gap-4">
+          <div className="hidden flex-1 justify-end gap-4 sm:flex">
             <ThemeToggle />
             <LanguageSwitcher />
           </div>
@@ -67,7 +67,7 @@ function App() {
             <CactuarCanvas />
           </div>
         </main>
-        <footer className="bg-background/80 flex h-12 flex-col items-center justify-center gap-1 px-6 pb-2">
+        <footer className="bg-background/80 flex h-12 flex-col items-center justify-center gap-1 px-6 pb-2 text-center">
           <div className="flex items-center">
             <p className="text-muted-foreground text-sm">
               © 2025 Archer Wn. {t('common.rightsReserved')}
