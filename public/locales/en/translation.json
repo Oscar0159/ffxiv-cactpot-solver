@@ -1,4 +1,5 @@
 {
+
     "theme": {
         "light": "Light",
         "dark": "Dark",
@@ -6,10 +7,12 @@
     },
 
     "common": {
+        "appName": "FFXIV Cactpot Solver",
         "undo": "Undo",
         "redo": "Redo",
         "reset": "Reset",
-        "rightsReserved": "All rights reserved"
+        "rightsReserved": "All rights reserved",
+        "cactuarCredit": "3D Model \"Cactuar\" by mescri, licensed under CC Attribution."
     },
 
     "cactpot": {

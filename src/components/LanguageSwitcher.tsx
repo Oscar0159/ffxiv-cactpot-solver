@@ -24,7 +24,7 @@ export default function LanguageSwitcher() {
       <SelectTrigger>
         <SelectValue placeholder="Select language" />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent position="popper" align="end">
         <SelectGroup>
           {languages.map((lang) => (
             <SelectItem key={lang.code} value={lang.code}>

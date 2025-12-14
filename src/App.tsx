@@ -35,7 +35,7 @@ function App() {
         <header className="bg-background/80 flex h-16 items-center px-6">
           <div className="flex-1"></div>
           <h4 className="flex-1 scroll-m-20 text-center text-xl font-semibold tracking-tight">
-            FFXIV Cactpot Solver
+            {t('common.appName')}
           </h4>
           <div className="flex flex-1 justify-end gap-4">
             <ThemeToggle />
@@ -67,17 +67,22 @@ function App() {
             <CactuarCanvas />
           </div>
         </main>
-        <footer className="bg-background/80 flex h-12 items-center justify-center px-6">
+        <footer className="bg-background/80 flex h-12 flex-col items-center justify-center gap-1 px-6 pb-2">
+          <div className="flex items-center">
+            <p className="text-muted-foreground text-sm">
+              © 2025 Archer Wn. {t('common.rightsReserved')}
+            </p>
+            <a
+              href="https://github.com/Oscar0159/ffxiv-cactpot-solver"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Github className="fill-muted-foreground ml-4 h-5 w-5 hover:opacity-70" />
+            </a>
+          </div>
           <p className="text-muted-foreground text-sm">
-            © 2025 Archer Wn. {t('common.rightsReserved')}
+            {t('common.cactuarCredit')}
           </p>
-          <a
-            href="https://github.com/Oscar0159/ffxiv-cactpot-solver"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Github className="fill-muted-foreground ml-4 h-5 w-5 hover:opacity-70" />
-          </a>
         </footer>
       </div>
     </ThemeProvider>

@@ -120,6 +120,15 @@ export default function Cactpot({
     [cactpotBoard],
   );
 
+  const bestLineDirections = useMemo(() => {
+    const maxExpectedBonus = Math.max(
+      ...cactpotLineSelectItems.map((item) => item.expectedBonus),
+    );
+    return cactpotLineSelectItems
+      .filter((item) => item.expectedBonus === maxExpectedBonus)
+      .map((item) => item.dir);
+  }, [cactpotLineSelectItems]);
+
   const hasNumber = (num: number) => {
     if (!cactpotBoard) return false;
     return cactpotBoard.flat().includes(num);
@@ -144,13 +153,19 @@ export default function Cactpot({
         {cactpotLineSelectItems.map((item, index) => (
           <div
             key={index}
-            className=''
             style={{
               gridColumnStart: item.col + 1,
               gridRowStart: item.row + 1,
             }}
           >
-            <Badge variant="outline">
+            <Badge
+              variant="outline"
+              className={cn(
+                isSelectFinished &&
+                  bestLineDirections.includes(item.dir) &&
+                  'animate-pulse border-amber-500 bg-amber-100 dark:border-amber-400 dark:bg-amber-900',
+              )}
+            >
               {item.prefix}
               {item.expectedBonus.toFixed(0)}
             </Badge>
@@ -174,7 +189,7 @@ export default function Cactpot({
                     revealPositions.some(
                       (pos) => pos[0] === rowIndex && pos[1] === colIndex,
                     )
-                    ? 'border-green-500 bg-green-100/50'
+                    ? 'animate-pulse border-green-500 bg-green-100/50 dark:border-green-400 dark:bg-green-900/50'
                     : '',
                 )}
                 style={{

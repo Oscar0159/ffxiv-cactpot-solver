@@ -6,10 +6,12 @@
     },
 
     "common": {
+        "appName": "FFXIV 仙人微彩解題",
         "undo": "撤銷",
         "redo": "重做",
         "reset": "重置",
-        "rightsReserved": "版權所有"
+        "rightsReserved": "版權所有",
+        "cactuarCredit": "3D 模型「Cactuar」由 mescri 製作，採用 CC Attribution 授權。"
     },
 
     "cactpot": {
